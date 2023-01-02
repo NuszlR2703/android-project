@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.zoltanlorinczi.project_retrofit.App
 import com.zoltanlorinczi.project_retrofit.api.ThreeTrackerRepository
 import com.zoltanlorinczi.project_retrofit.api.model.GroupsResponse
+import com.zoltanlorinczi.project_retrofit.api.model.UsersResponse
 import com.zoltanlorinczi.project_retrofit.manager.SharedPreferencesManager
 import kotlinx.coroutines.launch
+
+
 
 class GroupsViewModel(private val repository: ThreeTrackerRepository) : ViewModel() {
 
@@ -17,10 +20,10 @@ class GroupsViewModel(private val repository: ThreeTrackerRepository) : ViewMode
     }
 
     var products: MutableLiveData<List<GroupsResponse>> = MutableLiveData()
+    var userProducts: MutableLiveData<List<UsersResponse>> = MutableLiveData()
 
     init {
         getGroups()
-        getUsers()
     }
 
     private fun getGroups() {
@@ -41,6 +44,8 @@ class GroupsViewModel(private val repository: ThreeTrackerRepository) : ViewMode
                     groupsList?.let {
                         products.value = groupsList
                     }
+                    getUsers()
+
                 } else {
                     Log.d(TAG, "Get groups error response: ${response?.errorBody()}")
                 }
@@ -67,7 +72,7 @@ class GroupsViewModel(private val repository: ThreeTrackerRepository) : ViewMode
 
                     val usersList = response.body()
                     usersList?.let {
-                        products.value = usersList
+                        userProducts.value = usersList
                     }
                 } else {
                     Log.d(UsersViewModel.TAG, "Get users error response: ${response?.errorBody()}")

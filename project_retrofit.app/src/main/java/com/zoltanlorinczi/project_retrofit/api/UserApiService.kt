@@ -7,12 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-/**
- * Retrofit web service API.
- *
- * Author:  Zoltan Lorinczi
- * Date:    11/8/2021
- */
+
 interface UserApiService {
 
     @POST(BackendConstants.LOGIN_URL)
@@ -26,5 +21,8 @@ interface UserApiService {
 
     @GET(BackendConstants.GET_USERS_URL)
     suspend fun getUsers(@Header(BackendConstants.HEADER_TOKEN) token: String): Response<List<UsersResponse>>
+
+    @GET(BackendConstants.GET_MY_USER_URL)
+    suspend fun getMyUser(@Header(BackendConstants.HEADER_TOKEN) token: String): Response<UsersResponse>
 
 }

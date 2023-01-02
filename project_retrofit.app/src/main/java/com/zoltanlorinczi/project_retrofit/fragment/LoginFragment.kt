@@ -1,5 +1,8 @@
 package com.zoltanlorinczi.project_retrofit.fragment
 
+import android.app.Activity
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,6 +37,7 @@ class LoginFragment : Fragment() {
         val factory = LoginViewModelFactory(ThreeTrackerRepository())
         loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

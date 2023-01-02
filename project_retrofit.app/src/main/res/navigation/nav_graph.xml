@@ -3,7 +3,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph"
-  app:startDestination="@id/loginFragment">
+  app:startDestination="@id/splashScreenFragment">
+
 
   <fragment
     android:id="@+id/loginFragment"
@@ -30,4 +31,17 @@
       android:id="@+id/usersListFragment"
       android:name="com.zoltanlorinczi.project_retrofit.fragment.UsersListFragment"
       android:label="UsersListFragment" />
+  <fragment
+      android:id="@+id/activitiesFragment"
+      android:name="com.zoltanlorinczi.project_retrofit.fragment.ActivitiesFragment"
+      android:label="ActivitiesFragment" />
+
+  <fragment
+      android:id="@+id/splashScreenFragment"
+      android:name="com.zoltanlorinczi.project_retrofit.fragment.SplashScreenFragment"
+      android:label="SplashScreenFragment" />
+  <fragment
+      android:id="@+id/myProfileFragment"
+      android:name="com.zoltanlorinczi.project_retrofit.fragment.MyProfileFragment"
+      android:label="MyProfileFragment" />
 </navigation>

@@ -21,10 +21,11 @@ class TasksViewModel(private val repository: ThreeTrackerRepository) : ViewModel
     }
 
     var products: MutableLiveData<List<TaskResponse>> = MutableLiveData()
-
+    var isSuccessful: MutableLiveData<Boolean> = MutableLiveData(false);
     init {
         getTasks()
     }
+
 
     private fun getTasks() {
         viewModelScope.launch {
@@ -38,6 +39,7 @@ class TasksViewModel(private val repository: ThreeTrackerRepository) : ViewModel
                 }
 
                 if (response?.isSuccessful == true) {
+                    isSuccessful.value=true;
                     Log.d(TAG, "Get tasks response: ${response.body()}")
 
                     val tasksList = response.body()
@@ -45,6 +47,7 @@ class TasksViewModel(private val repository: ThreeTrackerRepository) : ViewModel
                         products.value = tasksList
                     }
                 } else {
+                    isSuccessful.value=false;
                     Log.d(TAG, "Get tasks error response: ${response?.errorBody()}")
                 }
 

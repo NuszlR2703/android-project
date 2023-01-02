@@ -1,17 +1,13 @@
 package com.zoltanlorinczi.project_retrofit.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.zoltanlorinczi.project_retorfit.R
 import com.zoltanlorinczi.project_retrofit.api.model.GroupsResponse
-import com.zoltanlorinczi.project_retrofit.api.model.TaskResponse
 
 /**
  * Author:  Zoltan Lorinczi
@@ -106,13 +102,6 @@ class GroupsListAdapter(
 
             complexHolder.groupTitleView.text = currentItem.title
 
-
-//            Glide.with(context)
-//                .load(R.drawable.ic_launcher_background)
-//                //.load("https://devinit.org/assets/img/profile-fallback.e7a6f788830c.jpg")
-//                //.placeholder(R.drawable.ic_launcher_background)
-//                .override(100, 100)
-//                .into(complexHolder.taskOwnerProfileImage)
         }
     }
 

@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavBar.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.activities -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.usersListFragment)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.activitiesFragment)
                 }
                 R.id.mytasks -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.listFragment)
@@ -31,8 +31,9 @@ class MainActivity : AppCompatActivity() {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.groupsListFragment)
                 }
                 R.id.profile -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.listFragment)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.myProfileFragment)
                 }
+
                 else ->{
                     false
                 }
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
+
 
     override fun onStart() {
         super.onStart()
