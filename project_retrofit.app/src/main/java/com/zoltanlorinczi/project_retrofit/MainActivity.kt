@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.bottomNavBar.setSelectedItemId(R.id.listFragment);
+        binding.bottomNavBar.setSelectedItemId(R.id.activitiesFragment)
 
         binding.bottomNavBar.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.activitiesFragment)
                 }
                 R.id.mytasks -> {
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.listFragment)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.tasksListFragment)
                 }
                 R.id.mygroups -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.groupsListFragment)

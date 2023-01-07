@@ -67,7 +67,7 @@ class LoginFragment : Fragment() {
             loginViewModel.isSuccessful.observe(this.viewLifecycleOwner) {
                 Log.d(TAG, "Logged in successfully = $it")
                 if (it) {
-                    findNavController().navigate(R.id.action_loginFragment_to_listFragment)
+                    findNavController().navigate(R.id.activitiesFragment)
                 }
             }
         }

@@ -10,19 +10,8 @@
     android:id="@+id/loginFragment"
     android:name="com.zoltanlorinczi.project_retrofit.fragment.LoginFragment"
     android:label="LoginFragment"
-    tools:layout="@layout/fragment_login">
+    tools:layout="@layout/fragment_login"/>
 
-    <action
-      android:id="@+id/action_loginFragment_to_listFragment"
-      app:destination="@id/listFragment"/>
-  </fragment>
-
-  <fragment
-    android:id="@+id/listFragment"
-    android:name="com.zoltanlorinczi.project_retrofit.fragment.TasksListFragment"
-    android:label="ListFragment"
-    tools:layout="@layout/fragment_tasks_list">
-  </fragment>
   <fragment
       android:id="@+id/groupsListFragment"
       android:name="com.zoltanlorinczi.project_retrofit.fragment.GroupsListFragment"
@@ -43,5 +32,25 @@
   <fragment
       android:id="@+id/myProfileFragment"
       android:name="com.zoltanlorinczi.project_retrofit.fragment.MyProfileFragment"
-      android:label="MyProfileFragment" />
+      android:label="MyProfileFragment" >
+    <action
+        android:id="@+id/action_myProfileFragment_to_myProfileEditFragment"
+        app:destination="@id/myProfileEditFragment" />
+  </fragment>
+  <fragment
+      android:id="@+id/groupMembersListFragment"
+      android:name="com.zoltanlorinczi.project_retrofit.fragment.GroupMembersListFragment"
+      android:label="GroupMembersListFragment" />
+  <fragment
+      android:id="@+id/myProfileEditFragment"
+      android:name="com.zoltanlorinczi.project_retrofit.fragment.MyProfileEditFragment"
+      android:label="MyProfileEditFragment" />
+  <fragment
+      android:id="@+id/taskDetailFragment"
+      android:name="com.zoltanlorinczi.project_retrofit.fragment.TaskDetailFragment"
+      android:label="TaskDetailFragment" />
+  <fragment
+      android:id="@+id/tasksListFragment"
+      android:name="com.zoltanlorinczi.project_retrofit.fragment.TasksListFragment"
+      android:label="TasksListFragment" />
 </navigation>

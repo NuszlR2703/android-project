@@ -32,4 +32,8 @@ class ThreeTrackerRepository {
     suspend fun getMyUser(token: String): Response<UsersResponse> {
         return RetrofitInstance.USER_API_SERVICE.getMyUser(token)
     }
+
+    suspend fun updateUser(token: String, userRequestBody: UserRequestBody): Response<String> {
+        return RetrofitInstance.USER_API_SERVICE.updateUser(token, userRequestBody)
+    }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,7 @@ class GroupsListFragment : Fragment(R.layout.fragment_groups_list), GroupsListAd
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val factory = GroupsViewModelFactory(ThreeTrackerRepository())
-        groupsViewModel = ViewModelProvider(this, factory)[GroupsViewModel::class.java]
+        groupsViewModel = ViewModelProvider(requireActivity(), factory)[GroupsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -70,7 +71,8 @@ class GroupsListFragment : Fragment(R.layout.fragment_groups_list), GroupsListAd
     }
 
     override fun onItemClick(position: Int) {
-//        TODO("Not yet implemented")
+        groupsViewModel.groupId = position;
+        findNavController().navigate(R.id.groupMembersListFragment)
     }
 
     override fun onItemLongClick(position: Int) {

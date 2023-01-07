@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zoltanlorinczi.project_retorfit.R
 import com.zoltanlorinczi.project_retrofit.api.ThreeTrackerRepository
-import com.zoltanlorinczi.project_retrofit.viewmodel.LoginViewModel
-import com.zoltanlorinczi.project_retrofit.viewmodel.TasksViewModel
-import com.zoltanlorinczi.project_retrofit.viewmodel.TasksViewModelFactory
+import com.zoltanlorinczi.project_retrofit.viewmodel.*
 
 class SplashScreenFragment : Fragment() {
 
@@ -19,11 +18,12 @@ class SplashScreenFragment : Fragment() {
         private val TAG: String = javaClass.simpleName
     }
 
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var groupsViewModel: GroupsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val factory = GroupsViewModelFactory(ThreeTrackerRepository())
+        groupsViewModel = ViewModelProvider(requireActivity(), factory)[GroupsViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -32,9 +32,10 @@ class SplashScreenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val factory = TasksViewModelFactory(ThreeTrackerRepository())
-        val tasksViewModel = ViewModelProvider(this, factory)[TasksViewModel::class.java]
-        tasksViewModel.isSuccessful.observe(viewLifecycleOwner) {
+        groupsViewModel.getUsers();
+        val navBar = activity?.findViewById<BottomNavigationView>(R.id.bottomNavBar)
+        navBar?.visibility = View.GONE;
+        groupsViewModel.isSuccessful.observe(viewLifecycleOwner) {
             if(it == true){
                 Thread.sleep(2000)
                 findNavController().navigate(R.id.activitiesFragment)

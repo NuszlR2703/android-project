@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.zoltanlorinczi.project_retrofit.App
 import com.zoltanlorinczi.project_retrofit.api.ThreeTrackerRepository
 import com.zoltanlorinczi.project_retrofit.api.model.LoginRequestBody
+import com.zoltanlorinczi.project_retrofit.api.model.UserRequestBody
 import com.zoltanlorinczi.project_retrofit.api.model.UsersResponse
 import com.zoltanlorinczi.project_retrofit.manager.SharedPreferencesManager
 import kotlinx.coroutines.launch
@@ -55,6 +56,35 @@ class UsersViewModel(private val repository: ThreeTrackerRepository) : ViewModel
     fun getUser(){
         viewModelScope.launch {
             executeGetMyUser()
+        }
+    }
+
+    fun updateUser(lastName: String, firstName: String, phone: String, location: String){
+        viewModelScope.launch {
+            try {
+
+                val token: String? = App.sharedPreferences.getStringValue(
+                    SharedPreferencesManager.KEY_TOKEN,
+                    "Empty token!"
+                )
+                val response = token?.let {
+
+                    val userRequestBody = UserRequestBody(lastName, firstName, location, phone, "")
+                    repository.updateUser(token, userRequestBody)
+                }
+
+
+                if (response?.isSuccessful == true) {
+
+                    Log.d(TAG, "Update user response: ${response.body()}")
+
+                } else {
+                    Log.d(TAG, "Update error response: ${response?.errorBody()}")
+                }
+
+            } catch (e: Exception) {
+                Log.d(TAG, "UsersViewModel - updateUser() failed with exception: ${e.message}")
+            }
         }
     }
 

@@ -21,6 +21,10 @@ class GroupsViewModel(private val repository: ThreeTrackerRepository) : ViewMode
 
     var products: MutableLiveData<List<GroupsResponse>> = MutableLiveData()
     var userProducts: MutableLiveData<List<UsersResponse>> = MutableLiveData()
+    var groupId: Int=0
+    var isSuccessful: MutableLiveData<Boolean> = MutableLiveData();
+
+
 
     init {
         getGroups()
@@ -56,7 +60,11 @@ class GroupsViewModel(private val repository: ThreeTrackerRepository) : ViewMode
         }
     }
 
-    private fun getUsers() {
+    fun getUsers(){
+        executeGetUsers();
+    }
+
+    private fun executeGetUsers() {
         viewModelScope.launch {
             try {
                 val token: String? = App.sharedPreferences.getStringValue(
@@ -68,21 +76,20 @@ class GroupsViewModel(private val repository: ThreeTrackerRepository) : ViewMode
                 }
 
                 if (response?.isSuccessful == true) {
+                    isSuccessful.value=true;
                     Log.d(UsersViewModel.TAG, "Get users response: ${response.body()}")
 
                     val usersList = response.body()
                     usersList?.let {
-                        userProducts.value = usersList
+                        userProducts.value = usersList.filter { it.departmentID == groupId }
                     }
                 } else {
+                    isSuccessful.value=false;
                     Log.d(UsersViewModel.TAG, "Get users error response: ${response?.errorBody()}")
                 }
 
             } catch (e: Exception) {
-                Log.d(
-                    UsersViewModel.TAG,
-                    "GroupsViewModel - getGroups() failed with exception: ${e.message}"
-                )
+                Log.d(UsersViewModel.TAG, "UsersViewModel - getUsers() failed with exception: ${e.message}")
             }
         }
     }

@@ -25,4 +25,7 @@ interface UserApiService {
     @GET(BackendConstants.GET_MY_USER_URL)
     suspend fun getMyUser(@Header(BackendConstants.HEADER_TOKEN) token: String): Response<UsersResponse>
 
+    @POST(BackendConstants.SAVE_USER_EDIT)
+    suspend fun updateUser(@Header(BackendConstants.HEADER_TOKEN) token: String, @Body userRequest: UserRequestBody): Response<String>
+
 }

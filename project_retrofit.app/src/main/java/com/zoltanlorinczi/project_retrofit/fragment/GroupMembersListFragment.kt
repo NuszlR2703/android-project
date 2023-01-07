@@ -11,50 +11,46 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zoltanlorinczi.project_retorfit.R
-import com.zoltanlorinczi.project_retrofit.adapter.GroupsListAdapter
-import com.zoltanlorinczi.project_retrofit.adapter.TasksListAdapter
 import com.zoltanlorinczi.project_retrofit.adapter.UsersListAdapter
 import com.zoltanlorinczi.project_retrofit.api.ThreeTrackerRepository
-import com.zoltanlorinczi.project_retrofit.api.model.GroupsResponse
-import com.zoltanlorinczi.project_retrofit.api.model.TaskResponse
 import com.zoltanlorinczi.project_retrofit.api.model.UsersResponse
 import com.zoltanlorinczi.project_retrofit.viewmodel.*
 
-/**
- * Author:  Zoltan Lorinczi
- * Date:    12/2/2021
- */
-class UsersListFragment : Fragment(R.layout.fragment_users_list), UsersListAdapter.OnItemClickListener,
-        UsersListAdapter.OnItemLongClickListener {
+
+class GroupMembersListFragment : Fragment(R.layout.fragment_group_members_list), UsersListAdapter.OnItemClickListener,
+    UsersListAdapter.OnItemLongClickListener {
 
     companion object {
         private val TAG: String = javaClass.simpleName
     }
 
-    private lateinit var usersViewModel: UsersViewModel
+    private lateinit var groupsViewModel: GroupsViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: UsersListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val factory = UsersViewModelFactory(ThreeTrackerRepository())
-        usersViewModel = ViewModelProvider(this, factory)[UsersViewModel::class.java]
+        val factory = GroupsViewModelFactory(ThreeTrackerRepository())
+        groupsViewModel = ViewModelProvider(requireActivity(), factory)[GroupsViewModel::class.java]
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_users_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_group_members_list, container, false)
         recyclerView = view.findViewById(R.id.recycler_view)
         setupRecyclerView()
-        usersViewModel.products.observe(viewLifecycleOwner) {
-            Log.d(TAG, "Groups list = $it")
-            adapter.setData(usersViewModel.products.value as ArrayList<UsersResponse>)
+        groupsViewModel.getUsers();
+
+        groupsViewModel.userProducts.observe(viewLifecycleOwner) {
+            Log.d(TAG, "Users list = $it")
+            adapter.setData(groupsViewModel.userProducts.value as ArrayList<UsersResponse>)
             adapter.notifyDataSetChanged()
         }
+
 
         return view
     }
@@ -64,10 +60,10 @@ class UsersListFragment : Fragment(R.layout.fragment_users_list), UsersListAdapt
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.addItemDecoration(
-                DividerItemDecoration(
-                        activity,
-                        DividerItemDecoration.VERTICAL
-                )
+            DividerItemDecoration(
+                activity,
+                DividerItemDecoration.VERTICAL
+            )
         )
         recyclerView.setHasFixedSize(true)
     }

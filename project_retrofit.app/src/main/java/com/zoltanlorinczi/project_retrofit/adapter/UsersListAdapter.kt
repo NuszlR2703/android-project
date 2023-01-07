@@ -1,17 +1,12 @@
 package com.zoltanlorinczi.project_retrofit.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.zoltanlorinczi.project_retorfit.R
-import com.zoltanlorinczi.project_retrofit.api.model.GroupsResponse
-import com.zoltanlorinczi.project_retrofit.api.model.TaskResponse
 import com.zoltanlorinczi.project_retrofit.api.model.UsersResponse
 
 /**
@@ -72,12 +67,12 @@ class UsersListAdapter(
     // 2. Called only a few times = number of items on screen + a few more ones
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleDataViewHolder {
         return when (viewType) {
-            TaskListItemType.SIMPLE.value -> {
+            UsersListItemType.SIMPLE.value -> {
                 val itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.users_list_item, parent, false)
                 SimpleDataViewHolder(itemView)
             }
-            TaskListItemType.COMPLEX.value -> {
+            UsersListItemType.COMPLEX.value -> {
                 val itemView = LayoutInflater.from(parent.context)
                     .inflate(R.layout.users_list_item, parent, false)
                 DataViewHolder(itemView)
@@ -97,12 +92,12 @@ class UsersListAdapter(
 //        } else {
 //            TaskListItemType.COMPLEX.value
 //        }
-        return  TaskListItemType.COMPLEX.value
+        return  UsersListItemType.COMPLEX.value
     }
 
     // 3. Called many times, when we scroll the list
     override fun onBindViewHolder(holder: SimpleDataViewHolder, position: Int) {
-        if (getItemViewType(position) == TaskListItemType.COMPLEX.value) {
+        if (getItemViewType(position) == UsersListItemType.COMPLEX.value) {
             val complexHolder = (holder as DataViewHolder)
             val currentItem = list[position]
 
@@ -126,7 +121,7 @@ class UsersListAdapter(
         list = newList
     }
 
-    private enum class TaskListItemType(val value: Int) {
+    private enum class UsersListItemType(val value: Int) {
         SIMPLE(0),
         COMPLEX(1)
     }
